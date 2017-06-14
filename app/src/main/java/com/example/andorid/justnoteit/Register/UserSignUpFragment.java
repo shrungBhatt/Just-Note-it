@@ -21,6 +21,7 @@ public class UserSignUpFragment extends Fragment {
     private EditText mUserPassword;
     private EditText mRetypePassword;
     private Button mSignUpButton;
+    private UserData mUserData;
 
 
 
@@ -28,6 +29,8 @@ public class UserSignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.user_sign_up_fragment,container,false);
+
+        mUserData = new UserData();
 
         mUserEmail = (EditText)v.findViewById(R.id.user_sign_up_email);
 
@@ -39,15 +42,14 @@ public class UserSignUpFragment extends Fragment {
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                UserData userData = new UserData();
 
                 String email = mUserEmail.getText().toString();
                 String password = mUserPassword.getText().toString();
                 String repass = mRetypePassword.getText().toString();
 
                 if(repass.equals(password)){
-                    userData.setUserEmail(email);
-                    userData.setUserPassword(password);
+                    mUserData.setUserEmail(email);
+                    mUserData.setUserPassword(password);
                     createNewUser();
                     Snackbar.make(getView(),"Registered",Snackbar.LENGTH_SHORT).show();
                 }else{
@@ -65,12 +67,12 @@ public class UserSignUpFragment extends Fragment {
     }
 
     private void createNewUser () {
-        UserData userData = new UserData();
 
-        userData.getUserId();
-        userData.getUserEmail();
-        userData.getUserPassword();
-        UserLab.get(getActivity()).addUser(userData);
+
+        mUserData.getUserId();
+        mUserData.getUserEmail();
+        mUserData.getUserPassword();
+        UserLab.get(getActivity()).addUser(mUserData);
     }
 
 

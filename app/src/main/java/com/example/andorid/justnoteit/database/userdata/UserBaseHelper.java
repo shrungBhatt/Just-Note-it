@@ -1,8 +1,11 @@
 package com.example.andorid.justnoteit.database.userdata;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.andorid.justnoteit.database.userdata.UserDbSchema.UserTable;
 
 /**
  * Created by Bhatt on 14-06-2017.
@@ -31,11 +34,11 @@ public class UserBaseHelper extends SQLiteOpenHelper {
     //Method used to create the structure of the database.
     @Override
     public void onCreate (SQLiteDatabase db) {
-        db.execSQL("create table " + UserDbSchema.UserTable.NAME + "(" +
+        db.execSQL("create table " + UserTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
-                UserDbSchema.UserTable.Cols.ID + ", " +
-                UserDbSchema.UserTable.Cols.EMAIL_ID + ", " +
-                UserDbSchema.UserTable.Cols.PASSWORD +
+                UserTable.Cols.ID + ", " +
+                UserTable.Cols.EMAIL_ID + ", " +
+                UserTable.Cols.PASSWORD +
                 ")"
         );
 
@@ -45,4 +48,45 @@ public class UserBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade (SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    public String fetchUserPass (String emailId) {
+
+        mDatabase = this.getReadableDatabase();
+
+
+        Cursor c = queryUsers(new String[]{UserTable.Cols.EMAIL_ID, UserTable.Cols.PASSWORD},
+                UserTable.Cols.EMAIL_ID + " = ?", new String[]{emailId});
+
+
+        String uName, pass;
+        pass = "not found";
+        try {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                uName = c.getString(c.getColumnIndex(UserTable.Cols.EMAIL_ID));
+                if (uName.equals(emailId)) {
+                    pass = c.getString(c.getColumnIndex(UserTable.Cols.PASSWORD));
+                }
+                c.moveToNext();
+            }
+        } finally {
+            c.close();
+        }
+        return pass;
+    }
+
+
+    private Cursor queryUsers (String[] projection, String whereClause, String[] whereArgs) {
+        return mDatabase.query(
+                UserTable.NAME,
+                projection,//Columns - null select columns
+                whereClause,
+                whereArgs,
+                null,//groupBy
+                null,//having
+                null //orderBy
+        );
+    }
+
+
 }
