@@ -55,7 +55,7 @@ public class UserLoginActivity extends AppCompatActivity {
                 String emailId = mUserEmail.getText().toString();
                 String pass = mUserPassword.getText().toString();
                 String checkPass = mHelper.fetchUserPass(emailId);
-                if(!emailId.isEmpty() && !checkPass.isEmpty()) {
+                if(!emailId.isEmpty() && !checkPass.isEmpty() && !pass.isEmpty()) {
                     if (checkPass.equals(pass)) {
                         SharedPreferencesData.setStoredLoginStatus(UserLoginActivity.this,true);
                         Intent i = NotesViewPagerActivity.newIntent(UserLoginActivity.this);

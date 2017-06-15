@@ -3,9 +3,6 @@ package com.example.andorid.justnoteit.Utils;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-/**
- * Created by Bhatt on 15-06-2017.
- */
 
 public class SharedPreferencesData {
 

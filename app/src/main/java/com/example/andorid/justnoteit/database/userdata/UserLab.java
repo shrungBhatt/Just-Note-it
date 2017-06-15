@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.andorid.justnoteit.database.userdata.UserDbSchema.UserTable;
 import com.example.andorid.justnoteit.models.UserData;
 
-/**
- * Created by Bhatt on 14-06-2017.
- */
 
 public class UserLab {
 

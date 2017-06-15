@@ -60,15 +60,10 @@ public class UserSignUpFragment extends Fragment {
 
             }
         });
-
-
-
         return v;
     }
 
     private void createNewUser () {
-
-
         mUserData.getUserId();
         mUserData.getUserEmail();
         mUserData.getUserPassword();

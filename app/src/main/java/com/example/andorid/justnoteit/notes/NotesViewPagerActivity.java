@@ -72,7 +72,4 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
 }
