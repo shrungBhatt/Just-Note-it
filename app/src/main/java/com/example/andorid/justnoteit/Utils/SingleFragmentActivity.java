@@ -1,4 +1,4 @@
-package com.example.andorid.justnoteit.Utils;
+package com.example.andorid.justnoteit.utils;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

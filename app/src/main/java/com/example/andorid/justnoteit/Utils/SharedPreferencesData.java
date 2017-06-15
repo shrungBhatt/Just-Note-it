@@ -1,4 +1,4 @@
-package com.example.andorid.justnoteit.Utils;
+package com.example.andorid.justnoteit.utils;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

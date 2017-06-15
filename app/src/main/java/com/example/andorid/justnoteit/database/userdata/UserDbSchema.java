@@ -3,6 +3,7 @@ package com.example.andorid.justnoteit.database.userdata;
 
 public class UserDbSchema {
     public static final class UserTable{
+
         public static final String NAME ="users";
 
         public static final class Cols{

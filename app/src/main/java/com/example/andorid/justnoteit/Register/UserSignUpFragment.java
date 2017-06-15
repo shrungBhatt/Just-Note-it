@@ -1,5 +1,6 @@
-package com.example.andorid.justnoteit.Register;
+package com.example.andorid.justnoteit.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.andorid.justnoteit.R;
 import com.example.andorid.justnoteit.database.userdata.UserLab;
+import com.example.andorid.justnoteit.login.UserLoginActivity;
 import com.example.andorid.justnoteit.models.UserData;
 
 
@@ -52,6 +54,8 @@ public class UserSignUpFragment extends Fragment {
                     mUserData.setUserPassword(password);
                     createNewUser();
                     Snackbar.make(getView(),"Registered",Snackbar.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), UserLoginActivity.class);
+                    startActivity(i);
                 }else{
                     Toast.makeText(getActivity(),"Password is not matching",Toast.LENGTH_SHORT)
                             .show();

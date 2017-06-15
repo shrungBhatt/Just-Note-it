@@ -1,30 +1,37 @@
 package com.example.andorid.justnoteit.models;
 
-/**
- * Created by Bhatt on 14-06-2017.
- */
+
+import java.util.UUID;
 
 public class NotesData {
-    private String mTopicName;
-    private int mId;
+    private String mTitle;
+    private String mId;
     private String mContent;
     private String mDateTime;
 
-    public String getTopicName () {
-        return mTopicName;
+    public NotesData(){}
+
+    public NotesData(String id,String title,String content,String dateTime){
+        mId = id;
+        mTitle = title;
+        mContent = content;
+        mDateTime = dateTime;
     }
 
-    public void setTopicName (String topicName) {
-        mTopicName = topicName;
+    public String getTitle () {
+        return mTitle;
     }
 
-    public int getId () {
+    public void setTitle (String title) {
+        mTitle = title;
+    }
+
+    public String getId () {
+        mId = UUID.randomUUID().toString();
         return mId;
     }
 
-    public void setId (int id) {
-        mId = id;
-    }
+
 
     public String getContent () {
         return mContent;

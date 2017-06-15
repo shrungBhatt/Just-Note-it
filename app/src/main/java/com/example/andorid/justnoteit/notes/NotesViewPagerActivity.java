@@ -12,13 +12,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.andorid.justnoteit.R;
-import com.example.andorid.justnoteit.Utils.SharedPreferencesData;
+import com.example.andorid.justnoteit.database.notesdata.NotesBaseHelper;
 import com.example.andorid.justnoteit.login.UserLoginActivity;
+import com.example.andorid.justnoteit.models.NotesData;
+import com.example.andorid.justnoteit.utils.SharedPreferencesData;
+
+import java.util.List;
 
 
 public class NotesViewPagerActivity extends AppCompatActivity {
 
     ViewPager mViewPager;
+    List<NotesData> mNotesDatas;
+    NotesBaseHelper mHelper;
 
     public static Intent newIntent(Context packageContext){
         return new Intent(packageContext,NotesViewPagerActivity.class);
@@ -29,11 +35,17 @@ public class NotesViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_viewpager);
 
+        //mHelper = new NotesBaseHelper(this);
+
+        //mNotesDatas = mHelper.getNotes();
+
 
         if(SharedPreferencesData.getStoredLoginStatus(NotesViewPagerActivity.this)&&
                 UserLoginActivity.mActive){
             UserLoginActivity.mActivity.finish();
             UserLoginActivity.mActivity = null;
+        }else{
+            return;
         }
 
         mViewPager = (ViewPager)findViewById(R.id.assignment_viewPager);
@@ -60,14 +72,18 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
         switch (item.getItemId()){
             case R.id.logout:
                 SharedPreferencesData.setStoredLoginStatus(NotesViewPagerActivity.this,false);
-                Intent i = new Intent(NotesViewPagerActivity.this,UserLoginActivity.class);
-                startActivity(i);
+                intent = new Intent(NotesViewPagerActivity.this,UserLoginActivity.class);
+                startActivity(intent);
                 finish();
-
-                return true;
+                return  true;
+            case R.id.add_note:
+                intent = new Intent(NotesViewPagerActivity.this,EditAddNewNoteActivity.class);
+                startActivity(intent);
+                return  true;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.andorid.justnoteit.R;
-import com.example.andorid.justnoteit.Register.UserSignUpActivity;
-import com.example.andorid.justnoteit.Utils.SharedPreferencesData;
+import com.example.andorid.justnoteit.register.UserSignUpActivity;
+import com.example.andorid.justnoteit.utils.SharedPreferencesData;
 import com.example.andorid.justnoteit.database.userdata.UserBaseHelper;
 import com.example.andorid.justnoteit.notes.NotesViewPagerActivity;
 
@@ -77,6 +77,7 @@ public class UserLoginActivity extends AppCompatActivity {
             public void onClick (View v) {
                 Intent i = new Intent(UserLoginActivity.this, UserSignUpActivity.class);
                 startActivity(i);
+                finish();
 
             }
         });

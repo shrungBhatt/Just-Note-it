@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.andorid.justnoteit.database.userdata.UserDbSchema.UserTable;
 
-/**
- * Created by Bhatt on 14-06-2017.
- */
 
 public class UserBaseHelper extends SQLiteOpenHelper {
 
