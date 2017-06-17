@@ -21,12 +21,17 @@ import java.util.Date;
 
 public class EditAddNewNoteFragment extends Fragment {
 
+
     private EditText mTitleEditText;
     private EditText mContentEditText;
+    private int mPosition;
     private Date date;
 
 
+
     DateFormat formatDate = DateFormat.getDateInstance(3);
+
+
 
 
     @Override
@@ -35,11 +40,9 @@ public class EditAddNewNoteFragment extends Fragment {
         setHasOptionsMenu(true);
 
 
+
     }
 
-    public static Fragment newInstance(){
-        return new EditAddNewNoteFragment();
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -49,7 +52,9 @@ public class EditAddNewNoteFragment extends Fragment {
 
         mTitleEditText = (EditText)v.findViewById(R.id.add_note_title);
 
+
         mContentEditText = (EditText)v.findViewById(R.id.add_note_content);
+
 
         return v;
     }
@@ -66,8 +71,6 @@ public class EditAddNewNoteFragment extends Fragment {
             case R.id.save_note:
                 addNote();
                 Toast.makeText(getActivity(),"Note Saved",Toast.LENGTH_SHORT).show();
-                //Intent i = new Intent(getActivity(),NotesViewPagerActivity.class);
-                //startActivity(i);
                 return  true;
             case R.id.edit_note_fragment_delete_note:
 

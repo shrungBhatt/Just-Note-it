@@ -22,70 +22,101 @@ import java.util.List;
 
 public class NotesViewPagerActivity extends AppCompatActivity {
 
-    ViewPager mViewPager;
-    List<NotesData> mNotesDatas;
-    NotesBaseHelper mHelper;
+    private ViewPager mViewPager;
+    public static List<NotesData> mNotesDatas;
+    private NotesBaseHelper mHelper;
 
-    public static Intent newIntent(Context packageContext){
-        return new Intent(packageContext,NotesViewPagerActivity.class);
+    public static Intent newIntent (Context packageContext) {
+        return new Intent(packageContext, NotesViewPagerActivity.class);
     }
 
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_viewpager);
 
-        //mHelper = new NotesBaseHelper(this);
+        mHelper = new NotesBaseHelper(this);
 
-        //mNotesDatas = mHelper.getNotes();
+        mNotesDatas = mHelper.getNotes();
 
 
-        if(SharedPreferencesData.getStoredLoginStatus(NotesViewPagerActivity.this)&&
-                UserLoginActivity.mActive){
+        if (SharedPreferencesData.getStoredLoginStatus(NotesViewPagerActivity.this) &&
+                UserLoginActivity.mActive) {
             UserLoginActivity.mActivity.finish();
             UserLoginActivity.mActivity = null;
-        }else{
+        } else {
             return;
         }
 
-        mViewPager = (ViewPager)findViewById(R.id.assignment_viewPager);
 
+        mViewPager = (ViewPager) findViewById(R.id.assignment_viewPager);
         FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentPagerAdapter(fm) {
+
+            @Override
+            public int getItemPosition (Object object) {
+                return POSITION_NONE;
+            }
+
             @Override
             public Fragment getItem (int position) {
-                return new NotesViewPagerFragment();
+                NotesData notesData = mNotesDatas.get(position);
+                return NotesViewPagerFragment.newInstance(position);
             }
 
             @Override
             public int getCount () {
-                return 10;
+                return mNotesDatas.size();
             }
         });
+
+
+
+        updateUI();
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.notes_home_screen_menu,menu);
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.notes_home_screen_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected (MenuItem item) {
         Intent intent;
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
-                SharedPreferencesData.setStoredLoginStatus(NotesViewPagerActivity.this,false);
-                intent = new Intent(NotesViewPagerActivity.this,UserLoginActivity.class);
+                SharedPreferencesData.setStoredLoginStatus(NotesViewPagerActivity.this, false);
+                intent = new Intent(NotesViewPagerActivity.this, UserLoginActivity.class);
                 startActivity(intent);
                 finish();
-                return  true;
+                return true;
             case R.id.add_note:
-                intent = new Intent(NotesViewPagerActivity.this,EditAddNewNoteActivity.class);
+                intent = new Intent(NotesViewPagerActivity.this, EditAddNewNoteActivity.class);
                 startActivity(intent);
-                return  true;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public static List<NotesData> getmNotesDatas () {
+        return mNotesDatas;
+    }
+
+    @Override
+    public void onResume () {
+        super.onResume();
+        updateUI();
+    }
+
+    public void updateUI () {
+        mNotesDatas = mHelper.getNotes();
+
+        mViewPager.getAdapter().notifyDataSetChanged();
+    }
+
+
 }
