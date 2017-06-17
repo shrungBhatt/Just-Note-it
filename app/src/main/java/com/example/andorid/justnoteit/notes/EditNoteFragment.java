@@ -39,7 +39,7 @@ public class EditNoteFragment extends Fragment {
     DateFormat formatDate = DateFormat.getDateInstance(3);
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -55,15 +55,15 @@ public class EditNoteFragment extends Fragment {
     }
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle SavedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_edit_note,container,false);
+    public View onCreateView (LayoutInflater inflater, ViewGroup container,
+                              Bundle SavedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_edit_note, container, false);
 
 
-        mTitleEditText = (EditText)v.findViewById(R.id.edit_note_title);
+        mTitleEditText = (EditText) v.findViewById(R.id.edit_note_title);
         mTitleEditText.setText(mNotesDatas.get(mPosition).getTitle());
 
-        mContentEditText = (EditText)v.findViewById(R.id.edit_note_content);
+        mContentEditText = (EditText) v.findViewById(R.id.edit_note_content);
         mContentEditText.setText(mNotesDatas.get(mPosition).getContent());
 
         return v;
@@ -76,15 +76,20 @@ public class EditNoteFragment extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.edit_fragment_save_edit:
-                mNotesData.setTitle(mTitleEditText.getText().toString());
-                mNotesData.setContent(mContentEditText.getText().toString());
-                mNotesData.setDateTime(formatDate.format(mDate));
-                NotesLab.get(getActivity()).updateNote(mId, mNotesData);
-                Toast.makeText(getActivity(), "Note Edited", Toast.LENGTH_SHORT).show();
-                return  true;
+                if (mNotesDatas.size() != 0) {
+                    mNotesData.setTitle(mTitleEditText.getText().toString());
+                    mNotesData.setContent(mContentEditText.getText().toString());
+                    mNotesData.setDateTime(formatDate.format(mDate));
+                    NotesLab.get(getActivity()).updateNote(mId, mNotesData);
+                    Toast.makeText(getActivity(), "Note Edited", Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Toast.makeText(getActivity(), "NoteBook is Empty", Toast.LENGTH_SHORT).show();
+                }
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -92,11 +97,10 @@ public class EditNoteFragment extends Fragment {
     }
 
     @Override
-    public void onPause(){
+    public void onPause () {
         super.onPause();
 
     }
-
 
 
 }

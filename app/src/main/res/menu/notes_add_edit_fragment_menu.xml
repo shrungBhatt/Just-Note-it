@@ -9,10 +9,5 @@
         android:icon="@drawable/note_save"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/edit_note_fragment_delete_note"
-        android:icon="@drawable/ic_delete"
-        android:title="Delete"
-        app:showAsAction="always"/>
 
 </menu>
