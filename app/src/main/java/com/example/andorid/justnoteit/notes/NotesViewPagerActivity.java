@@ -124,11 +124,15 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 startActivity(i);
                 return true;
             case R.id.delete_note:
-                mPosition = mViewPager.getCurrentItem();
-                String id = mNotesDatas.get(mPosition).getId().toString();
-                NotesLab.get(this).deleteNote(id);
-                updateUI();
-                Toast.makeText(this,"Note Deleted",Toast.LENGTH_SHORT).show();
+                if(mNotesDatas.size() !=0) {
+                    mPosition = mViewPager.getCurrentItem();
+                    String id = mNotesDatas.get(mPosition).getId().toString();
+                    NotesLab.get(this).deleteNote(id);
+                    updateUI();
+                    Toast.makeText(this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this,"NoteBook is empty",Toast.LENGTH_SHORT).show();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
