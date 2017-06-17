@@ -69,9 +69,6 @@ public class AddNewNoteFragment extends Fragment {
                 addNote();
                 Toast.makeText(getActivity(),"Note Saved",Toast.LENGTH_SHORT).show();
                 return  true;
-            case R.id.edit_note_fragment_delete_note:
-
-                return  true;
             default:
                 return super.onOptionsItemSelected(item);
         }

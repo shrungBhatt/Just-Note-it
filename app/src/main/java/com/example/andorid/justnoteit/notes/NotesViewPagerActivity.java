@@ -118,10 +118,14 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.edit_note:
-                mPosition = mViewPager.getCurrentItem();
-                SharedPreferencesData.setPosition(this, mPosition);
-                Intent i = new Intent(NotesViewPagerActivity.this, EditNoteActivity.class);
-                startActivity(i);
+                if(mNotesDatas.size() != 0) {
+                    mPosition = mViewPager.getCurrentItem();
+                    SharedPreferencesData.setPosition(this, mPosition);
+                    Intent i = new Intent(NotesViewPagerActivity.this, EditNoteActivity.class);
+                    startActivity(i);
+                }else {
+                    Toast.makeText(this, "NoteBook is Empty", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.delete_note:
                 if(mNotesDatas.size() !=0) {
