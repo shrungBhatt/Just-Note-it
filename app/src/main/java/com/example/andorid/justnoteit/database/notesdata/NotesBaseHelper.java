@@ -9,6 +9,7 @@ import com.example.andorid.justnoteit.database.notesdata.NotesDbSchema.NotesTabl
 import com.example.andorid.justnoteit.models.NotesData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,6 +59,7 @@ public class NotesBaseHelper extends SQLiteOpenHelper {
         }finally{
             cursor.close();
         }
+        Collections.reverse(notes);
         return notes;
     }
 

@@ -47,6 +47,10 @@ public class NotesLab {
                 new String[]{id});
     }
 
+    public void deleteNote(String id){
+        mDatabase.delete(NotesTable.NAME, NotesTable.Cols.ID + " = ?", new String[] {id});
+    }
+
     //This method is used to store the values into the database.
     private static ContentValues getContentValues (NotesData notesData) {
         ContentValues values = new ContentValues();

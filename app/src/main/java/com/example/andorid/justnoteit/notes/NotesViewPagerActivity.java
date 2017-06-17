@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.andorid.justnoteit.R;
 import com.example.andorid.justnoteit.database.notesdata.NotesBaseHelper;
+import com.example.andorid.justnoteit.database.notesdata.NotesLab;
 import com.example.andorid.justnoteit.login.UserLoginActivity;
 import com.example.andorid.justnoteit.models.NotesData;
 import com.example.andorid.justnoteit.utils.SharedPreferencesData;
@@ -26,6 +30,7 @@ public class NotesViewPagerActivity extends AppCompatActivity {
     public static List<NotesData> mNotesDatas;
     private NotesBaseHelper mHelper;
     private int mPosition;
+    private ImageView mImageView;
 
     public static Intent newIntent (Context packageContext) {
         return new Intent(packageContext, NotesViewPagerActivity.class);
@@ -41,6 +46,15 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
         mNotesDatas = mHelper.getNotes();
 
+        mImageView = (ImageView)findViewById(R.id.add_note_imageView);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Intent intent = new Intent(NotesViewPagerActivity.this, AddNewNoteActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         if (SharedPreferencesData.getStoredLoginStatus(NotesViewPagerActivity.this) &&
                 UserLoginActivity.mActive) {
@@ -53,7 +67,7 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.assignment_viewPager);
         FragmentManager fm = getSupportFragmentManager();
-        mViewPager.setAdapter(new FragmentPagerAdapter(fm) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
 
             @Override
             public int getItemPosition (Object object) {
@@ -69,6 +83,11 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
             @Override
             public int getCount () {
+                if(mNotesDatas.size()== 0){
+                    mImageView.setVisibility(View.VISIBLE);
+                }else{
+                    mImageView.setVisibility(View.GONE);
+                }
                 return mNotesDatas.size();
             }
         });
@@ -104,6 +123,12 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 Intent i = new Intent(NotesViewPagerActivity.this, EditNoteActivity.class);
                 startActivity(i);
                 return true;
+            case R.id.delete_note:
+                mPosition = mViewPager.getCurrentItem();
+                String id = mNotesDatas.get(mPosition).getId().toString();
+                NotesLab.get(this).deleteNote(id);
+                updateUI();
+                Toast.makeText(this,"Note Deleted",Toast.LENGTH_SHORT).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
