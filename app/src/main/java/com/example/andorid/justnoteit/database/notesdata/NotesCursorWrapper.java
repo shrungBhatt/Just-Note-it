@@ -6,6 +6,7 @@ import android.database.CursorWrapper;
 import com.example.andorid.justnoteit.database.notesdata.NotesDbSchema.NotesTable;
 import com.example.andorid.justnoteit.models.NotesData;
 
+import java.util.UUID;
 
 
 public class NotesCursorWrapper extends CursorWrapper {
@@ -25,6 +26,11 @@ public class NotesCursorWrapper extends CursorWrapper {
         String content = getString(getColumnIndex(NotesTable.Cols.CONTENTS));
         String date = getString(getColumnIndex(NotesTable.Cols.DATE));
 
-        return new NotesData(id,title,content,date);
+        NotesData notesData = new NotesData(UUID.fromString(id));
+        notesData.setTitle(title);
+        notesData.setContent(content);
+        notesData.setDateTime(date);
+
+        return notesData;
     }
 }

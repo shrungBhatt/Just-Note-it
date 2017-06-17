@@ -19,7 +19,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 
-public class EditAddNewNoteFragment extends Fragment {
+public class AddNewNoteFragment extends Fragment {
 
 
     private EditText mTitleEditText;
@@ -38,15 +38,12 @@ public class EditAddNewNoteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-
-
     }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_edit_add_new_note,container,false);
+        View v = inflater.inflate(R.layout.fragment_add_new_note,container,false);
 
         date = new Date();
 
@@ -89,10 +86,6 @@ public class EditAddNewNoteFragment extends Fragment {
         String Date = formatDate.format(date);
         notesData.setDateTime(Date);
         if(!title.isEmpty()){
-            notesData.getId();
-            notesData.getTitle();
-            notesData.getContent();
-            notesData.getDateTime();
             NotesLab.get(getActivity()).addNote(notesData);
         }else{
             Toast.makeText(getActivity(), "Enter Title", Toast.LENGTH_SHORT).show();

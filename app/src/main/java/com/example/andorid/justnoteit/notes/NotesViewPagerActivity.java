@@ -25,6 +25,7 @@ public class NotesViewPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     public static List<NotesData> mNotesDatas;
     private NotesBaseHelper mHelper;
+    private int mPosition;
 
     public static Intent newIntent (Context packageContext) {
         return new Intent(packageContext, NotesViewPagerActivity.class);
@@ -61,6 +62,7 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem (int position) {
+
                 NotesData notesData = mNotesDatas.get(position);
                 return NotesViewPagerFragment.newInstance(position);
             }
@@ -70,7 +72,6 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 return mNotesDatas.size();
             }
         });
-
 
 
         updateUI();
@@ -94,8 +95,14 @@ public class NotesViewPagerActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.add_note:
-                intent = new Intent(NotesViewPagerActivity.this, EditAddNewNoteActivity.class);
+                intent = new Intent(NotesViewPagerActivity.this, AddNewNoteActivity.class);
                 startActivity(intent);
+                return true;
+            case R.id.edit_note:
+                mPosition = mViewPager.getCurrentItem();
+                SharedPreferencesData.setPosition(this, mPosition);
+                Intent i = new Intent(NotesViewPagerActivity.this, EditNoteActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -114,8 +121,8 @@ public class NotesViewPagerActivity extends AppCompatActivity {
 
     public void updateUI () {
         mNotesDatas = mHelper.getNotes();
-
         mViewPager.getAdapter().notifyDataSetChanged();
+
     }
 
 

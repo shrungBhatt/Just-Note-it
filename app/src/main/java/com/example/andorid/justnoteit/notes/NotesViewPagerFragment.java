@@ -22,6 +22,8 @@ public class NotesViewPagerFragment extends Fragment {
     private TextView mTitleTextView;
     private TextView mContentTextView;
 
+
+
     public static NotesViewPagerFragment newInstance(int position){
         Bundle args = new Bundle();
         args.putInt(ARG_POSITION,position);

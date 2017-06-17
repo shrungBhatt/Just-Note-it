@@ -37,15 +37,21 @@ public class NotesLab {
         ContentValues values = getContentValues(notesData);
         mDatabase.insert(NotesTable.NAME, null, values);
 
+    }
 
+    public void updateNote(String id,NotesData notesData){
+        ContentValues values = getContentValues(notesData);
 
+        mDatabase.update(NotesTable.NAME, values,
+                NotesTable.Cols.ID + " = ?",
+                new String[]{id});
     }
 
     //This method is used to store the values into the database.
     private static ContentValues getContentValues (NotesData notesData) {
         ContentValues values = new ContentValues();
 
-        values.put(NotesTable.Cols.ID, notesData.getId());
+        values.put(NotesTable.Cols.ID, notesData.getId().toString());
         values.put(NotesTable.Cols.TITLE, notesData.getTitle());
         values.put(NotesTable.Cols.CONTENTS, notesData.getContent());
         values.put(NotesTable.Cols.DATE,notesData.getDateTime());

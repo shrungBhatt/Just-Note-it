@@ -38,9 +38,11 @@
 
 
         </activity>
-        <activity android:name=".notes.EditAddNewNoteActivity"
-            android:parentActivityName=".notes.NotesViewPagerActivity">
+        <activity android:name=".notes.AddNewNoteActivity">
 
+
+        </activity>
+        <activity android:name=".notes.EditNoteActivity">
 
         </activity>
     </application>

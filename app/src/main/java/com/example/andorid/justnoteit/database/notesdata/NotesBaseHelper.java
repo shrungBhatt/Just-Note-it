@@ -10,6 +10,7 @@ import com.example.andorid.justnoteit.models.NotesData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class NotesBaseHelper extends SQLiteOpenHelper {
@@ -59,6 +60,26 @@ public class NotesBaseHelper extends SQLiteOpenHelper {
         }
         return notes;
     }
+
+    public NotesData getNotes (UUID id) {
+
+        mDatabase = this.getReadableDatabase();
+        NotesCursorWrapper cursor = queryNotes(
+                NotesTable.Cols.ID +" = ?",
+                new String[]{id.toString()}
+        );
+
+        try{
+            if(cursor.getCount() == 0){
+                return null;
+            }
+            cursor.moveToFirst();
+            return cursor.getNotes();
+        }finally{
+            cursor.close();
+        }
+    }
+
 
     @Override
     public void onUpgrade (SQLiteDatabase db, int oldVersion, int newVersion) {

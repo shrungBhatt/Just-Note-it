@@ -6,11 +6,11 @@ import com.example.andorid.justnoteit.utils.SingleFragmentActivity;
 
 
 
-public class EditAddNewNoteActivity extends SingleFragmentActivity {
+public class AddNewNoteActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment(){
-        return new EditAddNewNoteFragment();
+        return new AddNewNoteFragment();
     }
 
 

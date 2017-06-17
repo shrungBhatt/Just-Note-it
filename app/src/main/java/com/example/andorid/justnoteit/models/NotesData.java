@@ -5,18 +5,32 @@ import java.util.UUID;
 
 public class NotesData {
     private String mTitle;
-    private String mId;
+    private UUID mId;
+    private String mNoteId;
     private String mContent;
     private String mDateTime;
 
-    public NotesData(){}
+    public NotesData(){
+        this(UUID.randomUUID());
+    }
+
+    public NotesData(UUID id){
+        mId = id;
+    }
+
 
     public NotesData(String id,String title,String content,String dateTime){
-        mId = id;
+        mNoteId = id;
         mTitle = title;
         mContent = content;
         mDateTime = dateTime;
     }
+
+
+    public UUID getId () {
+        return mId;
+    }
+
 
     public String getTitle () {
         return mTitle;
@@ -26,10 +40,6 @@ public class NotesData {
         mTitle = title;
     }
 
-    public String getId () {
-        mId = UUID.randomUUID().toString();
-        return mId;
-    }
 
 
 

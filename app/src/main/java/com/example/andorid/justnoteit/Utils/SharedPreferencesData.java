@@ -8,6 +8,7 @@ public class SharedPreferencesData {
 
     private static final String PREF_LOGIN_STATE = "login state";
     private static final String PREF_FLAG = "flag";
+    private static final String PREF_ID = "id";
 
 
     public static Boolean getStoredLoginStatus (Context context){
@@ -22,15 +23,27 @@ public class SharedPreferencesData {
                 .apply();
     }
 
-    public static Boolean getFlag (Context context){
+    public static int getPosition (Context context){
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(PREF_FLAG,false);
+                .getInt(PREF_FLAG,0);
     }
 
-    public static void setFlag (Context context, Boolean status){
+    public static void setPosition (Context context, int status){
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
-                .putBoolean(PREF_FLAG,status)
+                .putInt(PREF_FLAG,status)
+                .apply();
+    }
+
+    public static String getId (Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(PREF_ID,null);
+    }
+
+    public static void setId (Context context, String id){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putString(PREF_ID,id)
                 .apply();
     }
 }
